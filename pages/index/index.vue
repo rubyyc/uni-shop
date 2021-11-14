@@ -8,11 +8,20 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello11'
 			}
 		},
-		onLoad() {
-
+		async onLoad() {
+			// this.$u.get('/api/index').then(res => {
+			// 	console.log(res);
+			// }).catch(e => {
+			// 	console.log(e);
+			// })
+			// console.log(1111);
+			// const res = await this.$u.get('/api/index')
+			const res = await this.$u.post('/api/auth/login')
+			console.log(res);
+			console.log(1111);
 		},
 		methods: {
 
