@@ -132,8 +132,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
 var _default =
 {
   data: function data() {
@@ -149,9 +147,12 @@ var _default =
 
 
 
-                _this.$u.post('/api/auth/login'));case 2:res = _context.sent;
-              console.log(res);
-              console.log(1111);case 5:case "end":return _context.stop();}}}, _callee);}))();
+
+
+
+
+                _this.$u.patch('/api/orders/1/confirm'));case 2:res = _context.sent;
+              console.log(res);case 4:case "end":return _context.stop();}}}, _callee);}))();
   },
   methods: {} };exports.default = _default;
 
