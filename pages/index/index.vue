@@ -1,12 +1,12 @@
 <template>
-  <view class="content">首页</view>
+  <view class="content">{{vuex_name}}</view>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      title: 'Hello11'
+      title: 'Hello112'
     }
   },
   async onLoad () {
@@ -25,12 +25,15 @@ export default {
     // console.log(res);
 
 		// const res = await this.$u.api.getIndex()
-		const data = {
-			email: 'test@a.com',
-			password: '123123'
-		}
-		const res = await this.$u.api.authLogin(data)
-		console.log(res);
+		// const data = {
+		// 	email: 'test@a.com',
+		// 	password: '123123'
+		// }
+		// const res = await this.$u.api.authLogin(data)
+		// console.log(res);
+		console.log(this.vuex_version);
+		this.$u.vuex('vuex_name','Tom222222')
+		console.log(this.vuex_name);
   },
   methods: {
 
