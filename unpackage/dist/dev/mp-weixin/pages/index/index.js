@@ -139,20 +139,28 @@ var _default =
       title: 'Hello11' };
 
   },
-  onLoad: function onLoad() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+  onLoad: function onLoad() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var data, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              // this.$u.get('/api/index').then(res => {
+              // 	console.log(res);
+              // }).catch(e => {
+              // 	console.log(e);
+              // })
+              // console.log(1111);
+              // const res = await this.$u.get('/api/index')
+              // const res = await this.$u.post('/api/auth/login')
+              // console.log(res);
+              // console.log(1111);
 
+              // const res = await this.$u.patch('/api/orders/1/confirm')
+              // console.log(res);
 
+              // const res = await this.$u.api.getIndex()
+              data = {
+                email: 'test@a.com',
+                password: '123123' };_context.next = 3;return (
 
-
-
-
-
-
-
-
-
-                _this.$u.patch('/api/orders/1/confirm'));case 2:res = _context.sent;
-              console.log(res);case 4:case "end":return _context.stop();}}}, _callee);}))();
+                _this.$u.api.authLogin(data));case 3:res = _context.sent;
+              console.log(res);case 5:case "end":return _context.stop();}}}, _callee);}))();
   },
   methods: {} };exports.default = _default;
 

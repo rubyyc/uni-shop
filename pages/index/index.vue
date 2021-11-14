@@ -21,8 +21,16 @@ export default {
     // console.log(res);
     // console.log(1111);
 
-    const res = await this.$u.patch('/api/orders/1/confirm')
-    console.log(res);
+    // const res = await this.$u.patch('/api/orders/1/confirm')
+    // console.log(res);
+
+		// const res = await this.$u.api.getIndex()
+		const data = {
+			email: 'test@a.com',
+			password: '123123'
+		}
+		const res = await this.$u.api.authLogin(data)
+		console.log(res);
   },
   methods: {
 
