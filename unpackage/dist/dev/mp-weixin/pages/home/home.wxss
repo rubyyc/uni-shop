@@ -12,11 +12,14 @@
   margin: 10rpx 0;
   font-weight: 500;
   font-size: 32rpx;
+  width: 100%;
 }
 .goods-item .price.data-v-92bb8f34 {
   color: red;
+  width: 50%;
 }
 .goods-item .sales.data-v-92bb8f34 {
   color: #888;
+  width: 50%;
 }
 

@@ -5,18 +5,19 @@
       <u-tabs :list="sortList" item-width="160" bar-width="100" :current="current" @change="changeSort"></u-tabs>
     </view>
 
-    <u-row gutter="16">
-      <u-col span="6" v-for="(item, index) in goods" :key="index">
+    <u-row gutter="16" class="u-skeleton">
+      <u-col span="6" v-for="(item, index) in goods.length !== 0 ?goods : 4" :key="index">
         <navigator class="goods-item">
-          <u-image width="100%" height="300rpx" :src="item.cover_url"></u-image>
-          <view class="title u-line-1">{{item.title}}</view>
+          <u-image class="u-skeleton-fillet" width="100%" height="300rpx" :src="item.cover_url"></u-image>
+          <view class="title u-line-1 u-skeleton-rect">{{item.title || '商品名称'}}</view>
           <view class="u-flex u-row-between">
-            <view class="price">￥ {{item.price}}</view>
-            <view class="sales">销量: {{item.sales}}</view>
+            <view class="price u-skeleton-rect">￥ {{item.price|| '价格'}}</view>
+            <view class="sales u-skeleton-rect">销量: {{item.sales|| '销量'}}</view>
           </view>
         </navigator>
       </u-col>
     </u-row>
+    <u-skeleton :loading="loading" :animation="true" bgcolor></u-skeleton>
   </view>
 </template>
 
@@ -41,7 +42,8 @@ export default {
       current: 0,
       slides: [],
       goods: [],
-      page: 1
+      page: 1,
+      loading: false
     }
   },
   onLoad () {
@@ -58,19 +60,23 @@ export default {
     },
     // 获取数据
     async getData () {
+      // 显示骨架屏
+      this.loading = true
       const params = {
         page: this.page
       }
-      if(this.current == 1){
+      if (this.current == 1) {
         params.sales = 1
       }
-      if(this.current == 2){
+      if (this.current == 2) {
         params.recommend = 1
       }
-      if(this.current == 3){
+      if (this.current == 3) {
         params.new = 1
       }
       const res = await this.$u.api.index(params)
+      // 隐藏骨架屏
+      this.loading = false
       this.slides = res.slides
       this.goods = [...this.goods, ...res.goods.data]
       console.log(res);
@@ -94,12 +100,15 @@ export default {
 		margin: 10rpx 0;
 		font-weight: 500;
 		font-size: 32rpx;
+		width: 100%;
 	}
 	.price {
 		color: red;
+		width: 50%;
 	}
 	.sales {
 		color: #888;
+		width: 50%;
 	}
 }
 </style>
