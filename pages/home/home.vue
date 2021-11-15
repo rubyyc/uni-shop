@@ -6,16 +6,23 @@
     </view>
 
     <u-row gutter="16" class="u-skeleton">
-      <u-col span="6" v-for="(item, index) in goods.length !== 0 ?goods : 4" :key="index">
-        <navigator class="goods-item">
-          <u-image class="u-skeleton-fillet" width="100%" height="300rpx" :src="item.cover_url"></u-image>
-          <view class="title u-line-1 u-skeleton-rect">{{item.title || '商品名称'}}</view>
-          <view class="u-flex u-row-between">
-            <view class="price u-skeleton-rect">￥ {{item.price|| '价格'}}</view>
-            <view class="sales u-skeleton-rect">销量: {{item.sales|| '销量'}}</view>
-          </view>
-        </navigator>
-      </u-col>
+      <block v-if="goods.length">
+        <u-col span="6" v-for="(item, index) in goods" :key="index">
+          <goods-card :item="item"></goods-card>
+        </u-col>
+      </block>
+      <block v-else>
+        <u-col span="6" v-for="(item, index) in 4" :key="index">
+          <navigator class="goods-item">
+            <u-image class="u-skeleton-fillet" width="100%" height="300rpx"></u-image>
+            <view class="title u-line-1 u-skeleton-rect">商品名称</view>
+            <view class="u-flex u-row-between">
+              <view class="price u-skeleton-rect">￥0</view>
+              <view class="sales u-skeleton-rect">销量: 0</view>
+            </view>
+          </navigator>
+        </u-col>
+      </block>
     </u-row>
     <u-skeleton :loading="loading" :animation="true" bgcolor></u-skeleton>
   </view>
