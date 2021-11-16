@@ -1,65 +1,77 @@
 <template>
-	<view class="wrap">
-		<view class="top"></view>
-		<view class="content">
-			<view class="title">欢迎登录图书商城</view>
-			<input class="u-border-bottom" v-model="email" placeholder="请输入邮箱" />
-			<input class="u-border-bottom" v-model="password" placeholder="请输入密码" />
-			<button @tap="submit" :style="[inputStyle]" class="getCaptcha">登录</button>
-			<view class="alternative">
-				<view class="password">找回登录</view>
-				<view class="issue">注册</view>
-			</view>
-		</view>
-	</view>
+  <view class="wrap">
+    <view class="top"></view>
+    <view class="content">
+      <view class="title">欢迎登录图书商城</view>
+      <input class="u-border-bottom" v-model="email" placeholder="请输入邮箱" />
+      <input class="u-border-bottom" v-model="password" placeholder="请输入密码" />
+      <button @tap="submit" :style="[inputStyle]" class="getCaptcha">登录</button>
+      <view class="alternative">
+        <view class="password">找回登录</view>
+        <view class="issue">注册</view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-			email: '',
-			password: ''
-		}
-	},
-	onLoad(){
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  onLoad () {
 
-	},
-	computed: {
-		inputStyle() {
-			let style = {};
-			if(this.$u.test.email(this.email) && this.password) {
-				style.color = "#fff";
-				style.backgroundColor = this.$u.color['warning'];
-			}
-			return style;
-		}
-	},
-	methods: {
-		async submit() {
-			if(!this.$u.test.email(this.email) || !this.password) {
-				return false
-			}
-			const params = {
-				email: this.email,
-				password: this.password
-			}
-			const loginRes = await this.$u.api.authLogin(params)
-			console.log(loginRes);
-			// 缓存token
-			this.$u.vuex('vuex_token',loginRes.access_token)
-			// 请求用户信息
-			const userInfo = this.$u.api.userInfo()
-			console.log(userInfo);
-			// 缓存用户信息
-			this.$u.vuex('vuex_user',userInfo)
-		}
-	}
+  },
+  computed: {
+    inputStyle () {
+      let style = {};
+      if (this.$u.test.email(this.email) && this.password) {
+        style.color = "#fff";
+        style.backgroundColor = this.$u.color['warning'];
+      }
+      return style;
+    }
+  },
+  methods: {
+    async submit () {
+      if (!this.$u.test.email(this.email) || !this.password) {
+        return false
+      }
+      const params = {
+        email: this.email,
+        password: this.password
+      }
+      const loginRes = await this.$u.api.authLogin(params)
+      console.log(loginRes);
+      // 缓存token
+      this.$u.vuex('vuex_token', loginRes.access_token)
+      this.$u.toast('登录成功')
+      // 请求用户信息
+      const userInfo = this.$u.api.userInfo()
+
+      console.log(userInfo);
+      // 缓存用户信息
+      this.$u.vuex('vuex_user', userInfo)
+      // 取来源页
+      const backUrl = uni.getStorageSync('back_url') || 'page/home/home'
+
+
+      setTimeout(() => {
+        this.$u.route({
+          type: 'reLaunch',
+          url: backUrl
+        })
+      }, 2000)
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.u-border-bottom{
+.u-border-bottom {
 	margin-bottom: 40rpx !important;
 }
 .wrap {
@@ -90,7 +102,7 @@ export default {
 			border: none;
 			font-size: 30rpx;
 			padding: 12rpx 0;
-			
+
 			&::after {
 				border: none;
 			}
@@ -106,8 +118,8 @@ export default {
 		.loginType {
 			display: flex;
 			padding: 350rpx 150rpx 150rpx 150rpx;
-			justify-content:space-between;
-			
+			justify-content: space-between;
+
 			.item {
 				display: flex;
 				flex-direction: column;
@@ -116,12 +128,12 @@ export default {
 				font-size: 28rpx;
 			}
 		}
-		
+
 		.hint {
 			padding: 20rpx 40rpx;
 			font-size: 20rpx;
 			color: $u-tips-color;
-			
+
 			.link {
 				color: $u-type-warning;
 			}

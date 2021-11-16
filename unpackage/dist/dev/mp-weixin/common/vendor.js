@@ -12825,12 +12825,15 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var install = function install(Vue, vm) {
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var install = function install(Vue, vm) {
   var isLogin = function isLogin() {
     // 如果没有token,跳转到登录页面
     var token = vm.vuex_token;
     if (!token) {
       vm.$u.toast('请登录');
+      var currentPage = getCurrentPages().pop();
+      console.log(currentPage);
+      uni.setStorageSync('back_url', currentPage.route);
       setTimeout(function () {
         vm.$u.route({
           type: 'redirect',
@@ -12848,6 +12851,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 {
   install: install };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ]]);
