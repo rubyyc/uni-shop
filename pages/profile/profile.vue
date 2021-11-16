@@ -10,18 +10,10 @@ export default {
     };
   },
   onLoad () {
-    // 如果没有token,跳转到登录页面
-    const token = this.vuex_token
-    if (!token) {
-			this.$u.toast('请登录')
-      setTimeout(() => {
-        this.$u.route({
-					type: 'redirect',
-          url: 'pages/login/login'
-        })
-      }, 2000)
-    }
-
+   if(!this.$u.utils.isLogin()){
+		 return 
+	 }
+	 console.log(1111);
   }
 }
 </script>
