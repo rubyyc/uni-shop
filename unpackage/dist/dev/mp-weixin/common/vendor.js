@@ -12525,8 +12525,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
-// 这里的vm，就是我们在vue文件里面的this，所以我们能在这里获取vuex的变量，比如存放在里面的token变量
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} // 这里的vm，就是我们在vue文件里面的this，所以我们能在这里获取vuex的变量，比如存放在里面的token变量
 var install = function install(Vue, vm) {
   // 此为自定义配置参数，具体参数见上方说明
   Vue.prototype.$u.http.setConfig({
@@ -12576,35 +12575,41 @@ var install = function install(Vue, vm) {
 
   // 响应拦截，判断状态码是否通过
   Vue.prototype.$u.http.interceptor.response = function (res) {var
-    statusCode = res.statusCode,data = res.data;
+
+    statusCode =
+
+    res.statusCode,data = res.data;
     if (statusCode < 400) {
       // res为服务端返回值，可能有code，result等字段
       // 这里对res.result进行返回，将会在this.$u.post(url).then(res => {})的then回调中的res的到
       // 如果配置了originalData为true，请留意这里的返回值
       return data;
 
-    } else
-    if (statusCode == 400) {
+    } else if (statusCode == 400) {
       // 错误的请求
       vm.$u.toast(data.message);
       return false;
-    } else
-    if (statusCode == 401) {
-      // 假设401为token失效，这里跳转登录
-      vm.$u.toast('验证失败，请重新登录.');
-      setTimeout(function () {
-        // 此为uView的方法，详见路由相关文档
-        vm.$u.route('/pages/user/login');
-      }, 1500);
+    } else if (statusCode == 401) {
+      // 认证未通过
+      if (data.message === 'Unauthorized') {
+        vm.$u.toast('账号或密码错误');
+      } else {
+        // 假设401为token失效，这里跳转登录
+        vm.$u.toast('验证失败，请重新登录.');
+        setTimeout(function () {
+          // 此为uView的方法，详见路由相关文档
+          vm.$u.route('/pages/user/login');
+        }, 1500);
+      }
       return false;
-    } else
-    if (statusCode == 422) {
+    } else if (statusCode == 422) {
       // 表单验证不通过
-      var errors = data.errors;
+      var
+      errors =
+      data.errors;
       vm.$u.toast(Object.values(errors)[0][0]);
       return false;
-    } else
-    {
+    } else {
       // 如果返回false，则会调用Promise的reject回调，
       // 并将进入this.$u.post(url).then().catch(res=>{})的catch回调中，res为服务端的返回值
       return false;
