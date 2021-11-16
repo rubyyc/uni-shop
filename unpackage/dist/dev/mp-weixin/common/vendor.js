@@ -12594,11 +12594,14 @@ var install = function install(Vue, vm) {
         vm.$u.toast('账号或密码错误');
       } else {
         // 假设401为token失效，这里跳转登录
-        vm.$u.toast('验证失败，请重新登录.');
-        setTimeout(function () {
-          // 此为uView的方法，详见路由相关文档
-          vm.$u.route('/pages/user/login');
-        }, 1500);
+        // 方法一
+        // vm.$u.toast('验证失败，请重新登录.');
+        // setTimeout(() => {
+        // 	// 此为uView的方法，详见路由相关文档
+        // 	vm.$u.route('/pages/user/login')
+        // }, 1500)
+        // 方法二
+        vm.$u.utils.isLogin();
       }
       return false;
     } else if (statusCode == 422) {
