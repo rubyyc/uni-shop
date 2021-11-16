@@ -156,6 +156,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
   data: function data() {
@@ -192,7 +194,7 @@ var _default =
                 _this.$u.vuex('vuex_token', loginRes.access_token);
                 _this.$u.toast('登录成功');
                 // 请求用户信息
-                userInfo = _this.$u.api.userInfo();
+                _context.next = 11;return _this.$u.api.userInfo();case 11:userInfo = _context.sent;
 
                 console.log(userInfo);
                 // 缓存用户信息
@@ -206,7 +208,7 @@ var _default =
                     type: 'reLaunch',
                     url: backUrl });
 
-                }, 2000);case 14:case "end":return _context.stop();}}}, _callee);}))();
+                }, 2000);case 16:case "end":return _context.stop();}}}, _callee);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

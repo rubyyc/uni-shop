@@ -7,8 +7,10 @@
       <input class="u-border-bottom" v-model="password" placeholder="请输入密码" />
       <button @tap="submit" :style="[inputStyle]" class="getCaptcha">登录</button>
       <view class="alternative">
-        <view class="password">找回登录</view>
-        <view class="issue">注册</view>
+        <view class="password">找回密码</view>
+        <navigator url="/pages/register/register">
+          <view class="issue">注册</view>
+        </navigator>
       </view>
     </view>
   </view>
@@ -50,7 +52,7 @@ export default {
       this.$u.vuex('vuex_token', loginRes.access_token)
       this.$u.toast('登录成功')
       // 请求用户信息
-      const userInfo = this.$u.api.userInfo()
+      const userInfo = await this.$u.api.userInfo()
 
       console.log(userInfo);
       // 缓存用户信息

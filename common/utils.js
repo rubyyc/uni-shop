@@ -6,7 +6,18 @@ const install = (Vue, vm) => {
       vm.$u.toast('请登录')
       const currentPage = getCurrentPages().pop()
       console.log(currentPage);
-      uni.setStorageSync('back_url', currentPage.route)
+
+      const { options, route} = currentPage
+      const optionsKeys = Object.keys(options)
+      let params = ''
+      if (optionsKeys.length) {
+        params = optionsKeys.reduce((pre, current) => {
+          return pre + current + '=' + options[current] + '&'
+        }, '?').slice(0, -1)
+        console.log(params);
+      }
+
+      uni.setStorageSync('back_url', route + params)
       setTimeout(() => {
         vm.$u.route({
           type: 'redirect',

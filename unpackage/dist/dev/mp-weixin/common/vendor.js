@@ -12560,7 +12560,7 @@ var install = function install(Vue, vm) {
     // 所以哪怕您重新登录修改了Storage，下一次的请求将会是最新值
     // const token = uni.getStorageSync('token');
     // config.header.token = token;
-    config.header.Authorization = "Bearer " + vm.access_token;
+    config.header.Authorization = "Bearer " + vm.vuex_token;
 
     // 可以对某个url进行特别处理，此url参数为this.$u.get(url)中的url值
     if (config.url == '/user/login') {
@@ -12655,14 +12655,18 @@ var install = function install(Vue, vm) {
   // 认证相关
   // 登录
   var authLogin = function authLogin(params) {return vm.$u.post('/api/auth/login', params);};
+  // 注册
+  var authRegister = function authRegister(params) {return vm.$u.post('/api/auth/register', params);};
 
   //用户相关
   // 用户详情
-  var userInfo = function userInfo(params) {return vm.$u.get('/api/index');};
+  var userInfo = function userInfo(params) {return vm.$u.get('/api/user', params);};
+
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
   vm.$u.api = {
     index: index,
     authLogin: authLogin,
+    authRegister: authRegister,
     userInfo: userInfo };
 
 };var _default =
@@ -12832,8 +12836,19 @@ module.exports = {
     if (!token) {
       vm.$u.toast('请登录');
       var currentPage = getCurrentPages().pop();
-      console.log(currentPage);
-      uni.setStorageSync('back_url', currentPage.route);
+      console.log(currentPage);var
+
+      options = currentPage.options,route = currentPage.route;
+      var optionsKeys = Object.keys(options);
+      var params = '';
+      if (optionsKeys.length) {
+        params = optionsKeys.reduce(function (pre, current) {
+          return pre + current + '=' + options[current] + '&';
+        }, '?').slice(0, -1);
+        console.log(params);
+      }
+
+      uni.setStorageSync('back_url', route + params);
       setTimeout(function () {
         vm.$u.route({
           type: 'redirect',
