@@ -22,6 +22,9 @@ export default {
 			password: ''
 		}
 	},
+	onLoad(){
+
+	},
 	computed: {
 		inputStyle() {
 			let style = {};
@@ -41,8 +44,15 @@ export default {
 				email: this.email,
 				password: this.password
 			}
-			const res = await this.$u.api.authLogin(params)
-			console.log(res);
+			const loginRes = await this.$u.api.authLogin(params)
+			console.log(loginRes);
+			// 缓存token
+			this.$u.vuex('vuex_token',loginRes.access_token)
+			// 请求用户信息
+			const userInfo = this.$u.api.userInfo()
+			console.log(userInfo);
+			// 缓存用户信息
+			this.$u.vuex('vuex_user',userInfo)
 		}
 	}
 };

@@ -164,6 +164,9 @@ var _default =
       password: '' };
 
   },
+  onLoad: function onLoad() {
+
+  },
   computed: {
     inputStyle: function inputStyle() {
       var style = {};
@@ -175,7 +178,7 @@ var _default =
     } },
 
   methods: {
-    submit: function submit() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var params, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!(
+    submit: function submit() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var params, loginRes, userInfo;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!(
                 !_this.$u.test.email(_this.email) || !_this.password)) {_context.next = 2;break;}return _context.abrupt("return",
                 false);case 2:
 
@@ -183,8 +186,15 @@ var _default =
                   email: _this.email,
                   password: _this.password };_context.next = 5;return (
 
-                  _this.$u.api.authLogin(params));case 5:res = _context.sent;
-                console.log(res);case 7:case "end":return _context.stop();}}}, _callee);}))();
+                  _this.$u.api.authLogin(params));case 5:loginRes = _context.sent;
+                console.log(loginRes);
+                // 缓存token
+                _this.$u.vuex('vuex_token', loginRes.access_token);
+                // 请求用户信息
+                userInfo = _this.$u.api.userInfo();
+                console.log(userInfo);
+                // 缓存用户信息
+                _this.$u.vuex('vuex_user', userInfo);case 11:case "end":return _context.stop();}}}, _callee);}))();
     } } };exports.default = _default;
 
 /***/ }),

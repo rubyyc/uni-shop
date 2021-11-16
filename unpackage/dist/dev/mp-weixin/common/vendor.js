@@ -8760,7 +8760,7 @@ try {
 }
 
 // 需要永久存储，且下次APP启动需要取出的，在state中的变量名
-var saveStateKeys = ['vuex_user', 'vuex_token', 'vuex_name'];
+var saveStateKeys = ['vuex_user', 'vuex_token'];
 
 // 保存变量到本地存储中
 var saveLifeData = function saveLifeData(key, value) {
@@ -8781,11 +8781,9 @@ var store = new _vuex.default.Store({
     // 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
     // 加上vuex_前缀，是防止变量名冲突，也让人一目了然
     vuex_user: lifeData.vuex_user ? lifeData.vuex_user : { name: '明月' },
-    vuex_token: lifeData.vuex_token ? lifeData.vuex_token : '',
+    vuex_token: lifeData.vuex_token ? lifeData.vuex_token : ''
     // 如果vuex_version无需保存到本地永久存储，无需lifeData.vuex_version方式
-    vuex_version: '1.0.5',
-    vuex_name: lifeData.vuex_name ? lifeData.vuex_name : '' },
-
+  },
   mutations: {
     $uStore: function $uStore(state, payload) {
       // 判断是否多层级调用，state中为对象存在的情况，诸如user.info.score = 1
@@ -12550,6 +12548,7 @@ var install = function install(Vue, vm) {
     // 方式一，存放在vuex的token，假设使用了uView封装的vuex方式
     // 见：https://uviewui.com/components/globalVariable.html
     // config.header.token = vm.token;
+    config.header.Authorization = "Bearer" + vm.vuex_token;
 
     // 方式二，如果没有使用uView封装的vuex方法，那么需要使用$store.state获取
     // config.header.token = vm.$store.state.token;
@@ -12649,13 +12648,19 @@ var install = function install(Vue, vm) {
   // 此处使用了传入的params参数，一切自定义即可
   // 首页
   var index = function index(params) {return vm.$u.get('/api/index', params);};
+
   // 认证相关
   // 登录
   var authLogin = function authLogin(params) {return vm.$u.post('/api/auth/login', params);};
+
+  //用户相关
+  // 用户详情
+  var userInfo = function userInfo(params) {return vm.$u.get('/api/index');};
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
   vm.$u.api = {
     index: index,
-    authLogin: authLogin };
+    authLogin: authLogin,
+    userInfo: userInfo };
 
 };var _default =
 

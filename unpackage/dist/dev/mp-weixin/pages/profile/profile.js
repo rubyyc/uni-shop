@@ -132,13 +132,25 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
 var _default =
 {
   data: function data() {
     return {};
 
+
+  },
+  onLoad: function onLoad() {var _this = this;
+    // 如果没有token,跳转到登录页面
+    var token = this.vuex_token;
+    if (!token) {
+      this.$u.toast('请登录');
+      setTimeout(function () {
+        _this.$u.route({
+          type: 'redirect',
+          url: 'pages/login/login' });
+
+      }, 2000);
+    }
 
   } };exports.default = _default;
 
