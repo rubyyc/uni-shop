@@ -15,7 +15,7 @@
 
     <view class="u-m-t-20">
       <u-cell-group>
-        <u-cell-item icon="setting" title="个人信息"></u-cell-item>
+        <u-cell-item icon="setting" @click="goBaseInfo" title="个人信息"></u-cell-item>
       </u-cell-group>
     </view>
 
@@ -50,7 +50,12 @@ export default {
     console.log(1111);
   },
   methods: {
-
+		goBaseInfo(){
+			console.log(23312412312);
+			this.$u.route({
+				url: 'pages/profile/baseInfo'
+			})
+		}
   }
 }
 </script>

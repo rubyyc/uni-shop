@@ -29,26 +29,29 @@
         "navigationBarTitleText": "个人中心",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/register/register",
+      "style": {
+        "navigationBarTitleText": "注册",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/profile/baseInfo",
+      "style": {
+        "navigationBarTitleText": "修改个人信息",
+        "enablePullDownRefresh": false
+      }
     }
-      ,{
-            "path" : "pages/login/login",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/register/register",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+  ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "图书商城",

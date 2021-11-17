@@ -7,7 +7,10 @@ const install = (Vue, vm) => {
       const currentPage = getCurrentPages().pop()
       console.log(currentPage);
 
-      const { options, route} = currentPage
+      const {
+        options,
+        route
+      } = currentPage
       const optionsKeys = Object.keys(options)
       let params = ''
       if (optionsKeys.length) {
@@ -28,8 +31,15 @@ const install = (Vue, vm) => {
     }
     return true
   }
+
+  const updateUser = async () => {
+    // 重新请求用户信息
+    const userInfo = await vm.$u.api.userInfo()
+    vm.$u.vuex('vuex_user', userInfo)
+  }
   vm.$u.utils = {
-    isLogin
+    isLogin,
+    updateUser
   }
 }
 
