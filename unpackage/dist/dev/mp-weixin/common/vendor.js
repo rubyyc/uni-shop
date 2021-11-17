@@ -14465,17 +14465,21 @@ var install = function install(Vue, vm) {
   var authLogin = function authLogin(params) {return vm.$u.post('/api/auth/login', params);};
   // 注册
   var authRegister = function authRegister(params) {return vm.$u.post('/api/auth/register', params);};
+  // 退出登录
+  var authLogout = function authLogout(params) {return vm.$u.post('/api/auth/logout', params);};
 
   //用户相关
   // 用户详情
   var userInfo = function userInfo(params) {return vm.$u.get('/api/user', params);};
   var userInfoUpdate = function userInfoUpdate(params) {return vm.$u.put('/api/user', params);};
 
+
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
   vm.$u.api = {
     index: index,
     authLogin: authLogin,
     authRegister: authRegister,
+    authLogout: authLogout,
     userInfo: userInfo,
     userInfoUpdate: userInfoUpdate };
 

@@ -15,17 +15,21 @@ const install = (Vue, vm) => {
   const authLogin = params => vm.$u.post('/api/auth/login', params);
   // 注册
   const authRegister = params => vm.$u.post('/api/auth/register', params);
+  // 退出登录
+  const authLogout = params => vm.$u.post('/api/auth/logout',params)
 
   //用户相关
   // 用户详情
   const userInfo = params => vm.$u.get('/api/user', params);
   const userInfoUpdate = params => vm.$u.put('/api/user',params)
 
+
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
   vm.$u.api = {
     index,
     authLogin,
     authRegister,
+    authLogout,
     userInfo,
     userInfoUpdate
   };

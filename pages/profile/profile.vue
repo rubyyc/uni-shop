@@ -5,8 +5,8 @@
         <u-avatar :src="vuex_user.avatar_url" size="140"></u-avatar>
       </view>
       <view class="u-flex-1">
-        <view class="u-font-18 u-p-b-20">{{vuex_user.name}}</view>
-        <view class="u-font-14 u-tips-color">邮箱:{{vuex_user.email}}</view>
+        <view class="u-font-18 u-p-b-20">{{vuex_user.name || ''}}</view>
+        <view class="u-font-14 u-tips-color">邮箱:{{vuex_user.email || ''}}</view>
       </view>
       <view class="u-m-l-10 u-p-10">
         <u-icon name="arrow-right" color="#969799" size="28"></u-icon>
@@ -29,7 +29,7 @@
 
     <view class="u-m-t-20">
       <u-cell-group>
-        <u-cell-item icon="reload" title="退出登录"></u-cell-item>
+        <u-cell-item icon="reload" @click="logout" title="退出登录"></u-cell-item>
       </u-cell-group>
     </view>
   </view>
@@ -50,12 +50,30 @@ export default {
     console.log(1111);
   },
   methods: {
-		goBaseInfo(){
-			console.log(23312412312);
-			this.$u.route({
-				url: 'pages/profile/baseInfo'
-			})
-		}
+    goBaseInfo () {
+      console.log(23312412312);
+      this.$u.route({
+        url: 'pages/profile/baseInfo'
+      })
+    },
+    async logout () {
+      // 退出登录
+      await this.$u.api.authLogout()
+
+      this.$u.toast('退出成功')
+      // 清除缓存
+      this.$u.vuex('vuex_token', null)
+      this.$u.vuex('vuex_user', {})
+
+      setTimeout(() => {
+        // 跳转到首页
+        this.$u.route({
+          type: 'reLaunch',
+          url: '/pages/home/home'
+        })
+      },2000)
+
+    }
   }
 }
 </script>
