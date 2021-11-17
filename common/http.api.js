@@ -16,12 +16,16 @@ const install = (Vue, vm) => {
   // 注册
   const authRegister = params => vm.$u.post('/api/auth/register', params);
   // 退出登录
-  const authLogout = params => vm.$u.post('/api/auth/logout',params)
+  const authLogout = params => vm.$u.post('/api/auth/logout', params)
+  // 获取ossToken
+  const authOssToken = params => vm.$u.get('/api/auth/oss/token',params);
+
 
   //用户相关
   // 用户详情
   const userInfo = params => vm.$u.get('/api/user', params);
   const userInfoUpdate = params => vm.$u.put('/api/user',params)
+  const userAvatar = params => vm.$u.patch('/api/user/avatar',params)
 
 
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
@@ -30,8 +34,10 @@ const install = (Vue, vm) => {
     authLogin,
     authRegister,
     authLogout,
+    authOssToken,
     userInfo,
-    userInfoUpdate
+    userInfoUpdate,
+    userAvatar
   };
 }
 

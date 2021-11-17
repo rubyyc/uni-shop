@@ -14467,11 +14467,15 @@ var install = function install(Vue, vm) {
   var authRegister = function authRegister(params) {return vm.$u.post('/api/auth/register', params);};
   // 退出登录
   var authLogout = function authLogout(params) {return vm.$u.post('/api/auth/logout', params);};
+  // 获取ossToken
+  var authOssToken = function authOssToken(params) {return vm.$u.get('/api/auth/oss/token', params);};
+
 
   //用户相关
   // 用户详情
   var userInfo = function userInfo(params) {return vm.$u.get('/api/user', params);};
   var userInfoUpdate = function userInfoUpdate(params) {return vm.$u.put('/api/user', params);};
+  var userAvatar = function userAvatar(params) {return vm.$u.patch('/api/user/avatar', params);};
 
 
   // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
@@ -14480,8 +14484,10 @@ var install = function install(Vue, vm) {
     authLogin: authLogin,
     authRegister: authRegister,
     authLogout: authLogout,
+    authOssToken: authOssToken,
     userInfo: userInfo,
-    userInfoUpdate: userInfoUpdate };
+    userInfoUpdate: userInfoUpdate,
+    userAvatar: userAvatar };
 
 };var _default =
 

@@ -16,4 +16,8 @@ page {
 .user-box {
   background-color: #fff;
 }
+.avatar-body {
+  height: 70px;
+  width: 70px;
+}
 

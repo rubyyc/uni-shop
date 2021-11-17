@@ -95,8 +95,8 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    uAvatar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 144))
+    ossUpload: function() {
+      return __webpack_require__.e(/*! import() | components/oss-upload/oss-upload */ "components/oss-upload/oss-upload").then(__webpack_require__.bind(null, /*! @/components/oss-upload/oss-upload.vue */ 231))
     },
     uIcon: function() {
       return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 151))
@@ -236,7 +236,6 @@ var _default =
                     url: '/pages/home/home' });
 
                 }, 2000);case 6:case "end":return _context.stop();}}}, _callee);}))();
-
     } } };exports.default = _default;
 
 /***/ }),
